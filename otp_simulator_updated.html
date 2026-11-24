@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Задание для кандидата — Контакт-центр</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: rgb(200,225,252);
+    --purple: rgb(158,111,195);
+    --purple-dark: #5c348f;
+    --lime: rgb(193,255,5);
+    --orange: rgb(255,125,50);
+    --gray: rgb(186,187,186);
+    --dark: #1f2430;
+    --soft: #f6f8fc;
+    --white: #ffffff;
+    --ok: #1f9d55;
+    --warn: var(--orange);
+    --bad: #d64545;
+    --border: #e3e8f2;
+    --bg-light: #f4f7fb;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Onest', sans-serif;
+    color: var(--dark);
+    background: var(--bg-light);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+      radial-gradient(circle at 0% 0%, rgba(200,225,252, 0.6) 0%, transparent 40%),
+      radial-gradient(circle at 100% 100%, rgba(158,111,195, 0.15) 0%, transparent 40%);
+    z-index: -1;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .app { max-width: 1300px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .brand-mark {
+    width: 46px; height: 46px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--purple), #7a4db8);
+    position: relative; flex-shrink: 0;
+  }
+  .brand-mark::after {
+    content: ""; position: absolute; inset: 10px; border-radius: 8px;
+    background: var(--lime);
+  }
+  .brand-text b { font-family: 'Montserrat', sans-serif; font-size: 18px; }
+  .brand-text span { display: block; font-size: 13px; color: #6c7483; }
+
+  .card {
+    background: var(--white);
+    border: 1px solid rgba(186,187,186,.25);
+    border-radius: 24px;
+    padding: 32px 36px;
+    box-shadow: 0 12px 34px rgba(31,36,48,.04);
+    margin-bottom: 24px;
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .accent-line {
+    height: 4px; width: 60px; border-radius: 999px;
+    background: var(--purple); margin-bottom: 16px;
+  }
+
+  .muted { color: #6c7483; }
+  .small { font-size: 14px; }
+  .grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+
+  .grid-part2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    margin-top: 24px;
+  }
+
+  label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-family: 'Onest', sans-serif;
+    font-size: 16px;
+    background: #fbfcff;
+    transition: .2s ease;
+    outline: none;
+    resize: none;
+    color: var(--dark);
+  }
+  
+  input:focus-visible, textarea:focus-visible, .level-card:focus-visible {
+    border-color: var(--purple);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(158,111,195,.15);
+  }
+
+  input[readonly] {
+    background: #eef1f6 !important;
+    color: #6c7483 !important;
+    pointer-events: none;
+    border-color: #e3e8f2 !important;
+    user-select: none;
+  }
+
+  .btn {
+    border: none; border-radius: 16px; padding: 16px 28px;
+    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 15px;
+    cursor: pointer; transition: .2s ease;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-primary { background: var(--purple); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: var(--purple-dark); transform: translateY(-1px); }
+  .btn-ghost { background: #fff; color: var(--dark); border: 1.5px solid var(--border); }
+  .btn-ghost:hover:not(:disabled) { border-color: var(--purple); color: var(--purple-dark); }
+  .btn-lime { background: var(--lime); color: var(--dark); }
+  .btn-lime:hover:not(:disabled) { background: #aee600; }
+  .btn-warn { background: var(--warn); color: #fff; }
+  .btn-warn:hover:not(:disabled) { background: #e66820; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none!important; }
+
+  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .between { justify-content: space-between; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--blue); font-size: 13px; font-weight: 600;
+  }
+  .chip.purple { background: rgba(158,111,195,.15); color: var(--purple-dark); }
+  .chip.lime { background: rgba(193,255,5,.4); color: var(--dark); }
+
+  .level-card {
+    border: 1.5px solid var(--border); border-radius: 20px;
+    padding: 24px; cursor: pointer; transition: .2s ease;
+    background: #fff;
+  }
+  .level-card:hover { border-color: var(--purple); }
+  .level-card.active {
+    border-color: var(--purple);
+    background: rgba(200,225,252,.2);
+  }
+
+  .typing-area { position: relative; }
+  .sample-text {
+    font-size: 18px; line-height: 1.6;
+    background: var(--soft); border: 1px solid #e3e8f2;
+    border-radius: 20px; padding: 24px;
+    user-select: none; white-space: pre-wrap; word-break: break-word;
+    margin-bottom: 16px;
+  }
+  .sample-text .done { color: var(--gray); }
+  .sample-text .wrong { color: var(--bad); background: rgba(214,69,69,.1); border-radius: 3px; }
+  .sample-text .current { border-bottom: 3px solid var(--purple); margin-bottom: -3px; display: inline-block; }
+
+  textarea.typing { min-height: 160px; font-size: 18px; line-height: 1.6; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .stat {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 18px; padding: 16px; text-align: center;
+  }
+  .stat b { display: block; font-family: 'Montserrat', sans-serif; font-size: 26px; margin-bottom: 4px; }
+  .stat span { font-size: 13px; color: #6c7483; }
+
+  .value-ok { color: var(--ok) !important; }
+  .value-warn { color: var(--warn) !important; }
+  .value-bad { color: var(--bad) !important; }
+
+  .timer {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 20px; border-radius: 999px;
+    background: var(--dark); color: #fff;
+    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  .timer.warning { background: var(--warn); color: #fff; }
+  .timer.danger { background: var(--bad); }
+
+  .knowledge-panel {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 28px; font-size: 16px; line-height: 1.6;
+    user-select: none; 
+  }
+  .knowledge-panel h4 { font-size: 18px; margin: 0 0 16px; color: var(--purple-dark); }
+  .knowledge-panel p { margin-top: 0; margin-bottom: 12px; }
+  .knowledge-panel ul { margin: 0 0 16px 20px; padding: 0; }
+  .knowledge-panel li { margin-bottom: 10px; }
+  .knowledge-panel b { color: var(--purple-dark); }
+
+  .chat-bubble {
+    background: var(--soft); border-radius: 20px 20px 20px 4px;
+    padding: 16px 20px; font-size: 16px; font-weight: 500;
+    color: var(--dark); border: 1px solid #e3e8f2;
+    display: inline-block; margin-bottom: 16px;
+  }
+
+  .feedback {
+    background: rgba(200,225,252,.25); border: 1px solid rgba(200,225,252,.8);
+    border-radius: 18px; padding: 20px 24px; margin-top: 20px; font-size: 16px; line-height: 1.6;
+  }
+
+  .hidden { display: none !important; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  .toast-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
+  .toast {
+    padding: 16px 24px; border-radius: 14px; background: var(--dark); color: #fff;
+    font-size: 15px; box-shadow: 0 10px 30px rgba(31,36,48,.15);
+    animation: toastSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  .toast-error { background: var(--bad); }
+  .toast-warn { background: var(--warn); color: #fff; font-weight: 600; }
+  .toast-fade-out { animation: toastFadeOut 0.3s ease forwards; }
+  @keyframes toastSlideIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes toastFadeOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(50px); } }
+
+  .final-hero {
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 40px 30px;
+    margin-bottom: 24px;
+  }
+  .final-hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+  .final-hero .muted { font-size: 18px; max-width: 700px; margin: 0 auto; }
+
+  .task-block {
+    background: #fff;
+    border-radius: 26px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin-bottom: 24px;
+    display: flex; gap: 30px; align-items: center; justify-content: space-between;
+  }
+  .task-info { display: flex; align-items: center; gap: 20px; flex: 1; }
+  .task-badge {
+    width: 64px; height: 64px; border-radius: 20px;
+    display: grid; place-items: center;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 28px; flex-shrink: 0;
+    background: var(--soft); color: var(--dark); border: 1.5px solid var(--border);
+  }
+  .task-title { font-size: 24px; margin: 0 0 6px; }
+  .task-subtitle { font-size: 15px; color: #6c7483; margin: 0; }
+
+  .metric-grid { display: flex; gap: 16px; }
+  .metric-card {
+    background: #fff; border: 1.5px solid var(--border); border-radius: 18px;
+    padding: 16px 24px; text-align: center; min-width: 140px;
+  }
+  .metric-card.success-highlight {
+    background: rgba(193,255,5,.15); border-color: var(--lime);
+  }
+  .metric-label { font-size: 12px; text-transform: uppercase; color: #6c7483; margin-bottom: 8px; font-weight: 600; letter-spacing: 0.05em; }
+  .metric-value { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 32px; line-height: 1; }
+
+  .score-big { display: flex; align-items: center; gap: 24px; }
+  .score-number { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 48px; line-height: 1; white-space: nowrap; }
+  .score-number small { font-size: 20px; color: #6c7483; font-weight: 700; }
+
+  .copy-actions { margin-top: 32px; text-align: center; }
+
+  @media (max-width: 1024px) {
+    .grid-part2 { grid-template-columns: 1fr; }
+    .task-block { flex-direction: column; align-items: flex-start; }
+    .metric-grid { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="brand">
+    <div class="brand-mark" aria-hidden="true"></div>
+    <div class="brand-text">
+      <b>ОТП Банк · Контакт-центр</b>
+      <span>Интерактивное задание для кандидата</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ЭКРАН 1: СТАРТ -->
+    <section id="screen-start" class="card" aria-labelledby="h-start">
+      <div class="accent-line"></div>
+      <h1 id="h-start">Добро пожаловать!</h1>
+      <p class="muted">Перед началом задания укажите номер кандидата. Дата заполняется автоматически.</p>
+
+      <div class="grid grid-2 mt-24">
+        <div>
+          <label for="candidateNumber">Номер кандидата</label>
+          <input type="text" id="candidateNumber" placeholder="Например: К-2024-001" autocomplete="off">
+        </div>
+        <div>
+          <label for="candidateDate">Текущая дата</label>
+          <input type="text" id="candidateDate" readonly tabindex="-1">
+        </div>
+      </div>
+
+      <div class="row mt-24">
+        <button class="btn btn-primary" id="btnStart">Перейти к заданиям</button>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 2: ВЫБОР УРОВНЯ -->
+    <section id="screen-level" class="card hidden" aria-labelledby="h-level">
+      <div class="row between">
+        <div>
+          <div class="accent-line"></div>
+          <h2 id="h-level">Задание 1. Проверка скорости печати</h2>
+          <p class="muted">Выберите целевой уровень. У вас будет 2 попытки, результат засчитывается по второй.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-2 mt-24" role="radiogroup" aria-label="Выбор уровня">
+        <div class="level-card" data-level="beginner" role="radio" aria-checked="false" tabindex="0">
+          <div class="row between">
+            <h3>Базовый уровень</h3>
+            <span class="chip lime">200 зн/мин · 95%</span>
+          </div>
+          <p class="small muted mt-16">Текст про текущий счёт. Стандартная сложность.</p>
+        </div>
+        <div class="level-card" data-level="experienced" role="radio" aria-checked="false" tabindex="0">
+          <div class="row between">
+            <h3>Продвинутый уровень</h3>
+            <span class="chip lime">300 зн/мин · 97%</span>
+          </div>
+          <p class="small muted mt-16">Текст про номинальный счёт. Повышенные требования.</p>
+        </div>
+      </div>
+
+      <div class="row mt-24">
+        <button class="btn btn-primary" id="btnToTyping" disabled>Начать печать</button>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 3: ТЕСТ ПЕЧАТИ -->
+    <section id="screen-typing" class="card hidden" aria-labelledby="h-typing">
+      <div class="row between">
+        <div>
+          <div class="accent-line"></div>
+          <h2 id="h-typing">Задание 1. Печать текста</h2>
+          <p class="muted small">Перепечатайте текст полностью. Доступен 1 сброс текста.</p>
+        </div>
+        <div class="row">
+          <span class="chip" id="attemptChip">Попытка 1 из 2</span>
+          <span class="chip purple" id="levelChip">—</span>
+        </div>
+      </div>
+
+      <div class="typing-area mt-24">
+        <div class="sample-text" id="sampleText" aria-hidden="true"></div>
+        <label for="typingInput" class="visually-hidden">Поле для ввода текста</label>
+        <!-- Анти-чит: запрет на вставку и копирование -->
+        <textarea class="typing" id="typingInput" placeholder="Начните печатать здесь..." spellcheck="false" autocomplete="off" onpaste="return false" oncopy="return false" oncut="return false"></textarea>
+      </div>
+
+      <div class="stats" aria-live="polite">
+        <div class="stat">
+          <b id="statSpeed">0</b>
+          <span>знаков в минуту</span>
+        </div>
+        <div class="stat">
+          <b id="statAccuracy">0%</b>
+          <span>точность совпадения</span>
+        </div>
+        <div class="stat">
+          <b id="statChars">0</b>
+          <span>введено знаков</span>
+        </div>
+      </div>
+
+      <div class="row between mt-24">
+        <div class="row">
+          <button class="btn btn-ghost" id="btnResetTyping">Сбросить (1 раз)</button>
+          <button class="btn btn-warn" id="btnStopTyping">Стоп (тест)</button>
+        </div>
+        <button class="btn btn-primary" id="btnFinishAttempt" disabled>Завершить попытку</button>
+      </div>
+
+      <div id="attemptResult" class="feedback hidden" aria-live="polite"></div>
+    </section>
+
+    <!-- ЭКРАН 4: РЕЗУЛЬТАТ ПЕЧАТИ -->
+    <section id="screen-typing-result" class="card hidden" aria-labelledby="h-typing-result">
+      <div class="accent-line"></div>
+      <h2 id="h-typing-result">Результат первой части</h2>
+      <p class="muted">Итог зафиксирован по вашей второй попытке.</p>
+
+      <div class="stats mt-24">
+        <div class="stat">
+          <b id="finalSpeed">0</b>
+          <span>знаков в минуту</span>
+        </div>
+        <div class="stat">
+          <b id="finalAccuracy">0%</b>
+          <span>точность совпадения</span>
+        </div>
+        <div class="stat">
+          <b id="finalAttempts">2</b>
+          <span>попытки</span>
+        </div>
+      </div>
+
+      <div class="row mt-24">
+        <button class="btn btn-primary" id="btnToPart2">Перейти к Заданию 2</button>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 5: ЧАСТЬ 2 -->
+    <section id="screen-part2" class="card hidden" aria-labelledby="h-part2">
+      <div class="row between">
+        <div>
+          <div class="accent-line"></div>
+          <h2 id="h-part2">Задание 2. Работа с текстом Базы Знаний</h2>
+          <p class="muted small">Ты на смене в чате. Клиент банка задает тебе вопрос. На основании текста из базы знаний напиши простой и понятный ответ, сохраняя профессиональный тон.<br><b>На выполнение задания дается 10 минут.</b></p>
+        </div>
+        <div class="timer" id="timer" role="timer" aria-live="off">10:00</div>
+      </div>
+
+      <div class="grid-part2">
+        <!-- Левая колонка: База знаний (текст не копируется) -->
+        <div>
+          <div class="knowledge-panel" id="knowledgeText" oncopy="return false" oncut="return false" oncontextmenu="return false">
+            <h4>Правила переноса даты платежа</h4>
+            <p>Если в текущем календарном месяце дата платежа по действующему графику:</p>
+            <ul>
+              <li><b>наступила/прошла</b>, то дата платежа текущего календарного месяца остаётся неизменной независимо от факта оплаты/неоплаты данного ежемесячного платежа. Следующий ежемесячный платеж подлежит оплате в следующем календарном месяце в соответствии с изменённой датой согласно новому графику.</li>
+              <li><b>не наступила, и выбранная новая дата платежа также не наступила</b>, то ежемесячный платеж текущего календарного месяца переносится на новую, выбранную заёмщиком дату текущего календарного месяца согласно новому графику. Клиент может выбрать только дату больше даты оформления заявления.</li>
+              <li><b>не наступила, и выбранная заёмщиком новая дата платежа уже прошла</b>, то услуга не может быть предоставлена до момента наступления даты платежа по действующему графику. При этом ежемесячный платеж текущего календарного месяца должен быть оплачен согласно действующему графику.</li>
+            </ul>
+            <p>Если в текущем календарном месяце ежемесячный платеж:</p>
+            <ul>
+              <li><b>не предусмотрен действующим графиком</b>, то следующий ежемесячный платеж подлежит оплате в том же календарном месяце, что и в действующем графике, с учётом выбранной заёмщиком новой даты согласно новому графику.</li>
+            </ul>
+            <p>В качестве даты последнего ежемесячного платежа в новом графике банком может быть установлена либо плановая дата срока возврата кредита, указанная в индивидуальных условиях, либо дата последнего месяца кредита, указанная заёмщиком в заявлении на изменение даты (при условии, что дата последнего ежемесячного платежа не будет превышать плановой даты срока возврата кредита).</p>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Вопрос клиента и поле ответа -->
+        <div>
+          <div class="chat-bubble">
+            Клиент: «Подскажите, как вообще работает перенос даты платежа?»
+          </div>
+          
+          <label for="clientAnswer">Ваш ответ клиенту</label>
+          <!-- Анти-чит: запрет на вставку -->
+          <textarea id="clientAnswer" rows="18" placeholder="Напишите ответ..." onpaste="return false"></textarea>
+          
+          <div class="row between mt-24">
+            <span class="small muted">Таймер остановится при отправке.</span>
+            <button class="btn btn-primary" id="btnSubmitAnswer">Отправить ответ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 6: РЕЗУЛЬТАТ ЧАСТИ 2 (ЭТАЛОН) -->
+    <section id="screen-part2-result" class="card hidden" aria-labelledby="h-part2-result">
+      <div class="accent-line"></div>
+      <h2 id="h-part2-result">Задание завершено</h2>
+      <p class="muted">Ваш ответ успешно сохранен.</p>
+
+      <div class="mt-24">
+        <h3>Примерный эталонный вариант ответа</h3>
+        <div class="feedback" id="referenceAnswer">
+          Понимаю ваш вопрос. Давайте разберём, как работает перенос даты платежа.<br><br>
+          Если дата платежа в этом месяце уже наступила или прошла, она остаётся без изменений. Следующий платёж нужно будет внести в следующем месяце по новой дате из обновлённого графика.<br><br>
+          Если дата платежа ещё не наступила и новая выбранная вами дата тоже ещё не наступила, платёж переносится на новую дату. Важно: выбрать можно только дату позже даты оформления заявления.<br><br>
+          Если дата платежа ещё не наступила, а новая выбранная дата уже прошла, платёж за текущий месяц нужно внести по старому графику, а перенос заработает со следующего месяца.<br><br>
+          Последняя дата платежа устанавливается банком так, чтобы она не превышала плановую дату возврата кредита по вашему договору.
+        </div>
+      </div>
+
+      <div class="row mt-24">
+        <button class="btn btn-primary" id="btnFinish">Завершить задание</button>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 7: ФИНАЛ -->
+    <section id="screen-final" class="hidden" aria-labelledby="h-final">
+      <div class="final-hero">
+        <h1 id="h-final">Оценка завершена</h1>
+        <p class="muted">Нажмите «Скопировать результат» внизу страницы и отправьте текст рекрутеру.</p>
+      </div>
+
+      <!-- Задание 1 -->
+      <div class="task-block" id="finalTask1Block">
+        <div class="task-info">
+          <div class="task-badge" aria-hidden="true">1</div>
+          <div>
+            <h2 class="task-title">Задание 1. Скорость печати</h2>
+            <p class="task-subtitle" id="finalLevelLabel">Уровень: —</p>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-card" id="cardFinalSpeed">
+            <div class="metric-label">Скорость</div>
+            <div class="metric-value" id="finalSpeedValue">—</div>
+          </div>
+          <div class="metric-card" id="cardFinalAccuracy">
+            <div class="metric-label">Точность</div>
+            <div class="metric-value" id="finalAccuracyValue">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Задание 2 -->
+      <div class="task-block">
+        <div class="task-info">
+          <div class="task-badge" aria-hidden="true">2</div>
+          <div>
+            <h2 class="task-title">Задание 2. Работа с текстом</h2>
+            <p class="task-subtitle" id="finalTimeSpentLabel">Ответ клиенту. Время: —</p>
+          </div>
+        </div>
+        <div class="score-big">
+          <div class="score-number" id="finalScoreValue">—<small> / 5</small></div>
+        </div>
+      </div>
+
+      <div class="copy-actions">
+        <button class="btn btn-primary btn-copy" id="btnCopyResult" style="font-size: 18px; padding: 20px 40px; box-shadow: 0 10px 24px rgba(158,111,195,.2);">
+          Скопировать результат
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="toastContainer" class="toast-container" aria-live="assertive"></div>
+</div>
+
+<script>
+'use strict';
+
+/* ================= ДАННЫЕ ================= */
+const TEXTS = {
+  beginner: `Текущий счет (ТС) в банке — это счет, открытый на имя клиента. Он дает возможность использовать деньги, внесенные владельцем счета. Финансовые операции можно производить только на ту сумму денег, которая была зачислена.\n\nОбычно эти счета не используют с целью получения пассивного дохода (процентов) или с целью сбережений. Основная цель использования расчётного счета — надёжный и быстрый доступ к средствам по первому требованию через разнообразные каналы передачи распоряжений. При этом клиент может вносить или забирать любое количество средств в любое время*.\n\nПоскольку деньги доступны по требованию, эти счета иногда называют счетами до востребования. Термин «текущий счет» обычно относится к счетам физических лиц для совершения расчётных операций, не связанных с предпринимательской деятельностью или частной практикой.\n\n*Согласно тарифам РКО максимальная сумма, которая может быть снята клиентом со своих счетов в течение операционного дня без предварительного уведомления АО «ОТП Банк» — 100 000 рублей (по операциям в рублях РФ).\n\nВ соответствии с порядком операций с наличной валютой, введенным Банком России, с 09.03.22 по 09.09.25 средства в валюте, которые поступили в этот период, можно снять только в рублях.`,
+  experienced: `Банк открывает номинальный счет в рублях РФ для совершения операций с денежными средствами, права на которые принадлежат недееспособному, ограниченно дееспособному лицу.\n\nНоминальный счет открывается Владельцу счета при предъявлении документов, подтверждающих права Владельца счета действовать в интересах Бенефициара.\n\nДанные документы могут подтверждать установление опекунства/попечительства органами опеки и попечительства либо материнства/отцовства.\n\nПри обращении Клиента в Банк с целью открытия Счета Сотрудник Банка руководствуется Порядком обслуживания физических лиц по договорам банковских вкладов и банковских счетов в АО «ОТП Банк».\n\nОбращает внимание Клиента, что при открытии счета Банк обязан провести процедуру идентификации FATCA.\n\nВыявление иностранных налогоплательщиков осуществляется в соответствии с «Инструкцией по выявлению физических лиц, на которых распространяется законодательство иностранного государства о налогообложении иностранных счетов» в порядке, аналогичном порядку открытия текущих счетов.`
+};
+
+const CRITERIA = {
+  beginner: { speed: 200, accuracy: 95, label: 'Базовый уровень' },
+  experienced: { speed: 300, accuracy: 97, label: 'Продвинутый уровень' }
+};
+
+const PART2_DURATION = 10 * 60; // 10 минут
+const STORAGE_RESULT = 'otp_result_v2';
+
+/* ================= СОСТОЯНИЕ И КЭШ ================= */
+const state = {
+  candidate: { number: '', date: '' },
+  level: null,
+  attempt: 1,
+  results: [],
+  resetUsed: false,
+  typingStart: null,
+  part2Timer: null,
+  part2TimeLeft: PART2_DURATION,
+  part2Finished: false,
+  part2Score: null,
+  part2Answer: '',
+  part2TimeSpentSec: 0
+};
+
+const DOM = {
+  screens: {
+    start: document.getElementById('screen-start'),
+    level: document.getElementById('screen-level'),
+    typing: document.getElementById('screen-typing'),
+    typingResult: document.getElementById('screen-typing-result'),
+    part2: document.getElementById('screen-part2'),
+    part2Result: document.getElementById('screen-part2-result'),
+    final: document.getElementById('screen-final')
+  },
+  candidateNumber: document.getElementById('candidateNumber'),
+  candidateDate: document.getElementById('candidateDate'),
+  levelCards: document.querySelectorAll('.level-card'),
+  btnToTyping: document.getElementById('btnToTyping'),
+  levelChip: document.getElementById('levelChip'),
+  attemptChip: document.getElementById('attemptChip'),
+  typingInput: document.getElementById('typingInput'),
+  sampleText: document.getElementById('sampleText'),
+  statSpeed: document.getElementById('statSpeed'),
+  statAccuracy: document.getElementById('statAccuracy'),
+  statChars: document.getElementById('statChars'),
+  btnResetTyping: document.getElementById('btnResetTyping'),
+  btnStopTyping: document.getElementById('btnStopTyping'),
+  btnFinishAttempt: document.getElementById('btnFinishAttempt'),
+  attemptResult: document.getElementById('attemptResult'),
+  toastContainer: document.getElementById('toastContainer')
+};
+
+/* ================= ХЕЛПЕРЫ ================= */
+function showScreen(key) {
+  Object.values(DOM.screens).forEach(s => s.classList.add('hidden'));
+  DOM.screens[key].classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const focusable = DOM.screens[key].querySelector('button:not(:disabled), input:not([readonly]), textarea');
+  if (focusable) focusable.focus({ preventScroll: true });
+}
+
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  DOM.toastContainer.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('toast-fade-out');
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+function normalizeTarget(str) {
+  return String(str).replace(/\s+/g, ' ').trim();
+}
+
+function normalizeInput(str) {
+  let res = String(str).replace(/\s+/g, ' ');
+  if (res.startsWith(' ')) res = res.substring(1);
+  return res;
+}
+
+function computeTypingStats(target, typed, startTime) {
+  const targetLen = target.length;
+  const typedLen = typed.length;
+  let correct = 0;
+  const minLen = Math.min(typedLen, targetLen);
+
+  for (let i = 0; i < minLen; i++) {
+    if (typed[i] === target[i]) correct++;
+  }
+  const accuracy = typedLen ? Math.round((correct / typedLen) * 100) : 0;
+  let speed = 0;
+
+  if (startTime && typedLen > 0) {
+    const minutes = (Date.now() - startTime) / 60000;
+    speed = minutes > 0 ? Math.round(typedLen / minutes) : 0;
+  }
+  return { speed, accuracy, typedLen, targetLen, correct };
+}
+
+/* ================= ЭКРАН 1 ================= */
+document.getElementById('btnStart').addEventListener('click', () => {
+  const number = DOM.candidateNumber.value.trim();
+  const date = DOM.candidateDate.value;
+  if (!number) {
+    showToast('Укажите номер кандидата.', 'error');
+    DOM.candidateNumber.focus();
+    return;
+  }
+  state.candidate = { number, date };
+  showScreen('level');
+});
+
+/* ================= ЭКРАН 2 ================= */
+function selectLevel(card) {
+  DOM.levelCards.forEach(c => {
+    c.classList.remove('active');
+    c.setAttribute('aria-checked', 'false');
+  });
+  card.classList.add('active');
+  card.setAttribute('aria-checked', 'true');
+  state.level = card.dataset.level;
+  DOM.btnToTyping.disabled = false;
+  DOM.levelChip.textContent = CRITERIA[state.level].label;
+}
+
+DOM.levelCards.forEach(card => {
+  card.addEventListener('click', () => selectLevel(card));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectLevel(card); }
+  });
+});
+
+DOM.btnToTyping.addEventListener('click', () => {
+  if (!state.level) return;
+  state.attempt = 1;
+  state.results = [];
+  state.resetUsed = false;
+  state.typingStart = null;
+  DOM.attemptChip.textContent = 'Попытка 1 из 2';
+  DOM.typingInput.value = '';
+  DOM.typingInput.disabled = false;
+  DOM.btnFinishAttempt.disabled = true;
+  DOM.btnStopTyping.disabled = true;
+  DOM.btnResetTyping.disabled = false;
+  DOM.attemptResult.classList.add('hidden');
+  updateTypingStats();
+  showScreen('typing');
+});
+
+/* ================= ЭКРАН 3 (БЛОКИРОВКА ПРЫЖКОВ КУРСОРА) ================= */
+DOM.typingInput.addEventListener('keydown', (e) => {
+  if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].includes(e.key)) {
+    e.preventDefault();
+  }
+});
+DOM.typingInput.addEventListener('click', () => {
+  const len = DOM.typingInput.value.length;
+  DOM.typingInput.setSelectionRange(len, len);
+});
+DOM.typingInput.addEventListener('select', () => {
+  const len = DOM.typingInput.value.length;
+  DOM.typingInput.setSelectionRange(len, len);
+});
+
+function colorizeSpeed(element, speed, threshold, level) {
+  element.classList.remove('value-ok', 'value-warn', 'value-bad');
+  const badLimit = level === 'experienced' ? 200 : 150;
+  if (speed < badLimit) element.classList.add('value-bad');
+  else if (speed >= badLimit && speed < threshold) element.classList.add('value-warn');
+  else element.classList.add('value-ok');
+}
+
+function updateTypingStats() {
+  const target = normalizeTarget(TEXTS[state.level] || '');
+  const typed = normalizeInput(DOM.typingInput.value);
+  const stats = computeTypingStats(target, typed, state.typingStart);
+  const crit = CRITERIA[state.level];
+
+  DOM.statSpeed.textContent = stats.speed;
+  DOM.statAccuracy.textContent = stats.accuracy + '%';
+  DOM.statChars.textContent = stats.typedLen;
+
+  colorizeSpeed(DOM.statSpeed, stats.speed, crit.speed, state.level);
+
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < target.length; i++) {
+    const ch = target[i];
+    const span = document.createElement('span');
+    if (i < stats.typedLen) {
+      span.className = typed[i] === target[i] ? 'done' : 'wrong';
+      span.textContent = ch;
+    } else if (i === stats.typedLen) {
+      span.className = 'current';
+      span.textContent = ch;
+    } else {
+      span.textContent = ch;
+    }
+    frag.appendChild(span);
+  }
+  DOM.sampleText.replaceChildren(frag);
+
+  DOM.btnFinishAttempt.disabled = stats.typedLen < 10;
+  DOM.btnStopTyping.disabled = !state.typingStart;
+}
+
+DOM.typingInput.addEventListener('input', () => {
+  if (!state.typingStart && DOM.typingInput.value.length > 0) {
+    state.typingStart = Date.now();
+  }
+  updateTypingStats();
+});
+
+DOM.btnResetTyping.addEventListener('click', () => {
+  if (state.resetUsed) return;
+  state.resetUsed = true;
+  DOM.typingInput.value = '';
+  state.typingStart = null;
+  updateTypingStats();
+  DOM.btnResetTyping.disabled = true;
+  DOM.typingInput.focus();
+});
+
+DOM.btnStopTyping.addEventListener('click', () => finishAttempt(true));
+DOM.btnFinishAttempt.addEventListener('click', () => finishAttempt(false));
+
+function finishAttempt(stopped) {
+  const target = normalizeTarget(TEXTS[state.level] || '');
+  const typed = normalizeInput(DOM.typingInput.value);
+  const stats = computeTypingStats(target, typed, state.typingStart);
+
+  state.results.push({
+    attempt: state.attempt,
+    speed: stats.speed,
+    accuracy: stats.accuracy,
+    stopped,
+    typedLen: stats.typedLen,
+    targetLen: stats.targetLen
+  });
+
+  DOM.typingInput.disabled = true;
+  DOM.btnFinishAttempt.disabled = true;
+  DOM.btnStopTyping.disabled = true;
+  DOM.btnResetTyping.disabled = true;
+
+  if (state.attempt === 1) {
+    state.attempt = 2;
+    DOM.attemptChip.textContent = 'Попытка 2 из 2';
+    showToast('Подготовка второй попытки...', 'info');
+    setTimeout(() => {
+      DOM.typingInput.value = '';
+      DOM.typingInput.disabled = false;
+      state.typingStart = null;
+      DOM.btnResetTyping.disabled = true;
+      updateTypingStats();
+      DOM.typingInput.focus();
+    }, 1500);
+  } else {
+    setTimeout(showTypingResult, 500);
+  }
+}
+
+/* ================= ЭКРАН 4 ================= */
+function showTypingResult() {
+  const last = state.results[state.results.length - 1];
+  if (!last) return;
+  const crit = CRITERIA[state.level];
+
+  const speedEl = document.getElementById('finalSpeed');
+  const accEl = document.getElementById('finalAccuracy');
+
+  speedEl.textContent = last.speed;
+  accEl.textContent = last.accuracy + '%';
+
+  colorizeSpeed(speedEl, last.speed, crit.speed, state.level);
+  
+  accEl.classList.remove('value-ok', 'value-bad');
+  if (last.accuracy >= crit.accuracy) accEl.classList.add('value-ok');
+  else accEl.classList.add('value-bad');
+
+  showScreen('typingResult');
+}
+
+document.getElementById('btnToPart2').addEventListener('click', startPart2);
+
+/* ================= ЭКРАН 5 ================= */
+function startPart2() {
+  state.part2TimeLeft = PART2_DURATION;
+  state.part2Finished = false;
+  state.part2Score = null;
+  state.part2Answer = '';
+  document.getElementById('clientAnswer').value = '';
+  document.getElementById('clientAnswer').disabled = false;
+  document.getElementById('btnSubmitAnswer').disabled = false;
+  updateTimerDisplay();
+  showScreen('part2');
+  startPart2Timer();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(state.part2TimeLeft / 60);
+  const s = state.part2TimeLeft % 60;
+  const timer = document.getElementById('timer');
+  timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  timer.classList.remove('warning', 'danger');
+
+  if (state.part2TimeLeft <= 120) timer.classList.add('danger');
+  else if (state.part2TimeLeft <= 300) timer.classList.add('warning');
+}
+
+function startPart2Timer() {
+  clearInterval(state.part2Timer);
+  state.part2Timer = setInterval(() => {
+    if (state.part2Finished) return;
+    state.part2TimeLeft--;
+    updateTimerDisplay();
+    if (state.part2TimeLeft <= 0) {
+      clearInterval(state.part2Timer);
+      finishPart2(true);
+    }
+  }, 1000);
+}
+
+document.getElementById('btnSubmitAnswer').addEventListener('click', () => finishPart2(false));
+
+function calculateTextSimilarity(text1, text2) {
+  const words1 = normalizeTarget(text1).toLowerCase().split(' ').filter(w => w.length > 3);
+  const words2 = normalizeTarget(text2).toLowerCase().split(' ').filter(w => w.length > 3);
+  if (!words1.length || !words2.length) return 0;
+  let matches = 0;
+  words1.forEach(w => { if (words2.includes(w)) matches++; });
+  return matches / words1.length;
+}
+
+function finishPart2(timeUp) {
+  if (state.part2Finished) return;
+  state.part2Finished = true;
+  clearInterval(state.part2Timer);
+
+  const answer = document.getElementById('clientAnswer').value.trim();
+  state.part2Answer = answer;
+  state.part2TimeSpentSec = PART2_DURATION - state.part2TimeLeft;
+
+  const originalKbText = document.getElementById('knowledgeText').innerText;
+  const similarity = calculateTextSimilarity(answer, originalKbText);
+  const words = answer ? answer.split(/\s+/).filter(Boolean).length : 0;
+  const lower = answer.toLowerCase();
+
+  const empathyMarkers = ['понимаю', 'давайте', 'разберём', 'разберем', 'подскажу', 'уточню', 'спасибо', 'здравствуйте', 'добрый'];
+  const hasEmpathy = empathyMarkers.some(m => lower.includes(m));
+  const hasMain = lower.includes('дата') && (lower.includes('перенос') || lower.includes('платеж') || lower.includes('платёж'));
+
+  let score = 3;
+  if (!answer) score = 1;
+  else if (words < 20 || !hasMain) score = 2;
+  else if (words >= 70 && hasMain && hasEmpathy) score = 5;
+  else if (words >= 40 && hasMain) score = 4;
+
+  if (state.part2TimeSpentSec < 90) score = 1; 
+  if (similarity > 0.6) score = 1; 
+
+  state.part2Score = score;
+  showScreen('part2Result');
+}
+
+/* ================= ЭКРАН 6/7 ================= */
+document.getElementById('btnFinish').addEventListener('click', () => {
+  const payload = {
+    candidate: state.candidate,
+    level: state.level,
+    typingResults: state.results,
+    part2Answer: state.part2Answer,
+    part2Score: state.part2Score,
+    part2TimeSpentSec: state.part2TimeSpentSec,
+    finishedAt: new Date().toISOString()
+  };
+  try { localStorage.setItem(STORAGE_RESULT, JSON.stringify(payload)); } catch (e) {}
+  renderFinalSummary(payload);
+  showScreen('final');
+});
+
+function renderFinalSummary(payload) {
+  const crit = CRITERIA[payload.level] || {};
+  const results = payload.typingResults || [];
+  const final = results[results.length - 1];
+
+  document.getElementById('finalLevelLabel').textContent = 'Уровень: ' + (crit.label || payload.level || '—');
+
+  const speedVal = document.getElementById('finalSpeedValue');
+  const accVal = document.getElementById('finalAccuracyValue');
+  
+  if (final) {
+    speedVal.textContent = final.speed;
+    accVal.textContent = final.accuracy + '%';
+    
+    // Динамическая окраска текста финальной скорости
+    colorizeSpeed(speedVal, final.speed, crit.speed, payload.level);
+    
+    if (final.speed >= crit.speed && final.accuracy >= crit.accuracy) {
+      document.getElementById('cardFinalSpeed').classList.add('success-highlight');
+      document.getElementById('cardFinalAccuracy').classList.add('success-highlight');
+    }
+  }
+
+  const mins = Math.floor(payload.part2TimeSpentSec / 60);
+  const secs = payload.part2TimeSpentSec % 60;
+  document.getElementById('finalTimeSpentLabel').textContent = `Ответ клиенту. Время: ${mins} мин ${secs} сек`;
+
+  const scoreVal = document.getElementById('finalScoreValue');
+  if (scoreVal) {
+    if (payload.part2Score != null) {
+      scoreVal.innerHTML = payload.part2Score + '<small> / 5</small>';
+      
+      scoreVal.classList.remove('value-bad', 'value-warn', 'value-ok');
+      if (payload.part2Score <= 3) {
+        scoreVal.classList.add('value-bad');
+      } else if (payload.part2Score === 4) {
+        scoreVal.classList.add('value-warn');
+      } else if (payload.part2Score === 5) {
+        scoreVal.classList.add('value-ok');
+      }
+    } else {
+      scoreVal.innerHTML = '—<small> / 5</small>';
+    }
+  }
+}
+
+function buildReportText(payload) {
+  const crit = CRITERIA[payload.level] || {};
+  const results = payload.typingResults || [];
+  const attempt1 = results[0];
+  const attempt2 = results[1];
+  const final = results[results.length - 1];
+  const m = Math.floor(payload.part2TimeSpentSec / 60);
+  const s = payload.part2TimeSpentSec % 60;
+
+  const lines = [];
+  lines.push('ОТП Банк · Оценка кандидата');
+  lines.push('================================================');
+  lines.push('Номер кандидата: ' + payload.candidate.number);
+  lines.push('Дата: ' + payload.candidate.date);
+  lines.push('Уровень: ' + (crit.label || payload.level || '—'));
+  lines.push('');
+  lines.push('ЗАДАНИЕ 1. СКОРОСТЬ ПЕЧАТИ');
+  lines.push('Критерий: от ' + (crit.speed || '—') + ' зн/мин, точность от ' + (crit.accuracy || '—') + '%');
+  if (attempt1) lines.push('Попытка 1: ' + attempt1.speed + ' зн/мин, точность ' + attempt1.accuracy + '%');
+  if (attempt2) lines.push('Попытка 2: ' + attempt2.speed + ' зн/мин, точность ' + attempt2.accuracy + '%');
+  if (final) lines.push('Итог: ' + final.speed + ' зн/мин, точность ' + final.accuracy + '%');
+  lines.push('');
+  lines.push('ЗАДАНИЕ 2. РАБОТА С ТЕКСТОМ');
+  lines.push('Время выполнения: ' + m + ' мин ' + s + ' сек');
+  lines.push('Оценка (авто): ' + (payload.part2Score != null ? payload.part2Score + ' из 5' : '—'));
+  lines.push('Текст ответа:');
+  lines.push(payload.part2Answer ? payload.part2Answer : '(пусто)');
+  lines.push('');
+  lines.push('Завершено: ' + new Date(payload.finishedAt).toLocaleString('ru-RU'));
+  // ИСПРАВЛЕНИЕ: Используем \n для реального переноса строки вместо вывода текста "\n"
+  return lines.join('\n');
+}
+
+document.getElementById('btnCopyResult').addEventListener('click', () => {
+  const payload = {
+    candidate: state.candidate,
+    level: state.level,
+    typingResults: state.results,
+    part2Answer: state.part2Answer,
+    part2Score: state.part2Score,
+    part2TimeSpentSec: state.part2TimeSpentSec,
+    finishedAt: new Date().toISOString()
+  };
+
+  const text = buildReportText(payload);
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast('Результат скопирован', 'info'))
+      .catch(() => showToast('Ошибка копирования', 'error'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Результат скопирован', 'info');
+  }
+});
+
+/* ================= ИНИЦИАЛИЗАЦИЯ ================= */
+(function init() {
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  
+  DOM.candidateDate.value = `${dd}.${mm}.${yyyy}`;
+  // Поле номера теперь всегда очищается при загрузке, игнорируя старые данные в localStorage
+  DOM.candidateNumber.value = '';
+})();
+</script>
+</body>
+</html>
